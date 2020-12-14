@@ -63,6 +63,14 @@ public class MenuView {
                 .ajax(false)
                 .build();
         secondSubmenu.getElements().add(item);
+        
+        item = DefaultMenuItem.builder()
+                .value("Login")
+                .icon("pi pi-times")
+                .command("#{menuView.login}")
+                .ajax(false)
+                .build();
+        secondSubmenu.getElements().add(item);
  
         item = DefaultMenuItem.builder()
                 .value("Redirect")
