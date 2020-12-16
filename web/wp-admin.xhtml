@@ -32,36 +32,5 @@
             </h:form>
         </center>
     </h:body> 
-    <script>
-        $(document).ready(function () {
-            $.ajax({
-                url: "http://localhost:8080/VentasOnlinev2/webresources/entities.clientes",
-                beforeSend: function (xhr) {
-
-                }
-            }).done(function (xml) {
-                let clientes = new Array();
-                $(xml).find("clientes").each(function(idx, v) {
-                    let activo = $(v).find("activo").eq(0).text();
-                    let apellidos = $(v).find("apellidos").eq(0).text();
-                    let clienteId = $(v).find("clienteId").eq(0).text();
-                    let correoElectronico = $(v).find("correoElectronico").eq(0).text();
-                    let fechaRegistro = $(v).find("fechaRegistro").eq(0).text();
-                    let nombre = $(v).find("nombre").eq(0).text();
-                    let password = $(v).find("password").eq(0).text();
-                    let telefono = $(v).find("telefono").eq(0).text();
-                    clientes.push({
-                        activo : activo,
-                        apellidos : apellidos,
-                        clienteId : clienteId,
-                        correoElectronico : correoElectronico,
-                        fechaRegistro : fechaRegistro,
-                        nombre : nombre,
-                        password : password,
-                        telefono : telefono
-                    });
-                });
-            });
-        });
-    </script>
 </html>
+
