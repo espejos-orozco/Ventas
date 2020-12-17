@@ -8,12 +8,49 @@
         <ui:composition template="./plantillas/wp-admin-template.xhtml">
 
             <ui:define name="content">
-                content
+                <h2>Editar Empleado</h2>
+                <div class="col-xs-3">
+                    <form  action="Empleados.xhtml" method="POST">
+                        <div class="form-group w-50 p-3">
+                            <label>Nombre:</label>
+                            <input type="text" name="nombre" class="form-control"></input><br></br>
+                        </div>
+                        <div class="form-group">
+                            <label>Apellido:</label>
+                            <input type="text" name="apellido" class="form-control"></input><br></br>
+                        </div>
+                        <div class="form-group">
+                            <label>Nombre de Usuario:</label>
+                            <input type="text" name="usuario" class="form-control"></input><br></br>
+                        </div>
+                        <div class="form-group">
+                            <label>Contraseña:</label>
+                            <input type="password" name="password" class="form-control"></input><br></br>
+                        </div>
+                        <div class="form-group">
+                            <label>Fecha de Nacimiento:</label>
+                            <input type="date" name="fecha_nacimiento_date" class="form-control"></input><br></br>
+                        </div>
+                        <div class="form-group">
+                            <label>Acceso:</label><br></br>
+                            <input type="radio" name="acceso_sistema" value="1"></input>
+                            <label>Si</label><br></br>
+                            <input type="radio" name="acceso_sistema" value="0"></input>
+                            <label>No</label><br></br>
+                        </div>
+                        <div class="form-group">
+                            <label>Activo:</label><br></br>
+                            <input type="radio" name="activo" value="1"></input>
+                            <label>Si</label><br></br>
+                            <input type="radio" name="activo" value="0"></input>
+                            <label>No</label><br></br>
+                        </div>
+                        <button type="submit" class="btn btn-primary" value="Editar">Editar</button> 
+                    </form>
+                </div>
             </ui:define>
+            <br></br>
 
-            <ui:define name="bottom">
-                bottom
-            </ui:define>
 
         </ui:composition>
 
