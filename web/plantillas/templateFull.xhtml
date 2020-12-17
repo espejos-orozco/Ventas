@@ -43,8 +43,11 @@
         <!--responsive.css-->
         <link rel="stylesheet" href="assets/css/responsive.css"/>
 
+        <!-- Cookies -->
+        <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
+
         <!-- title of site -->
-        <title>Facelets Template</title>
+        <title>Ventas Online</title>
     </h:head>
 
     <h:body>
@@ -55,70 +58,18 @@
                 <div class="header-area">
                     <!-- Start Navigation -->
                     <nav class="navbar navbar-default bootsnav  navbar-sticky navbar-scrollspy"  data-minus-value-desktop="70" data-minus-value-mobile="55" data-speed="1000">
-
-                        <!-- Start Top Search -->
-                        <div class="top-search">
-                            <div class="container">
-                                <div class="input-group">
-                                    <span class="input-group-addon"><i class="fa fa-search"></i></span>
-                                    <input type="text" class="form-control" placeholder="Search"/>
-                                    <span class="input-group-addon close-search"><i class="fa fa-times"></i></span>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End Top Search -->
-
                         <div class="container">            
                             <!-- Start Atribute Navigation -->
                             <div class="attr-nav">
                                 <ul>
-                                    <li class="search">
-                                        <a href="#"><span class="lnr lnr-magnifier"></span></a>
-                                    </li><!--/.search-->
                                     <li class="nav-setting">
-                                        <a href="#"><span class="lnr lnr-cog"></span></a>
+                                        <a href="#" id="btn-sesion"><span class="lnr lnr-user"></span></a>
                                     </li><!--/.search-->
                                     <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" >
+                                        <a href="http://localhost:8080/Ventas/faces/carrito.xhtml" class="dropdown-toggle" data-toggle="dropdown" >
                                             <span class="lnr lnr-cart"></span>
-                                            <span class="badge badge-bg-1">2</span>
+                                            <span class="badge badge-bg-1" id="count-car">0</span>
                                         </a>
-                                        <ul class="dropdown-menu cart-list s-cate">
-                                            <li class="single-cart-list">
-                                                <a href="#" class="photo"><img src="assets/images/collection/arrivals1.png" class="cart-thumb" alt="image" /></a>
-                                                <div class="cart-list-txt">
-                                                    <h6><a href="#">arm <br/> chair</a></h6>
-                                                    <p>1 x - <span class="price">$180.00</span></p>
-                                                </div><!--/.cart-list-txt-->
-                                                <div class="cart-close">
-                                                    <span class="lnr lnr-cross"></span>
-                                                </div><!--/.cart-close-->
-                                            </li><!--/.single-cart-list -->
-                                            <li class="single-cart-list">
-                                                <a href="#" class="photo"><img src="assets/images/collection/arrivals2.png" class="cart-thumb" alt="image" /></a>
-                                                <div class="cart-list-txt">
-                                                    <h6><a href="#">single <br/> armchair</a></h6>
-                                                    <p>1 x - <span class="price">$180.00</span></p>
-                                                </div><!--/.cart-list-txt-->
-                                                <div class="cart-close">
-                                                    <span class="lnr lnr-cross"></span>
-                                                </div><!--/.cart-close-->
-                                            </li><!--/.single-cart-list -->
-                                            <li class="single-cart-list">
-                                                <a href="#" class="photo"><img src="assets/images/collection/arrivals3.png" class="cart-thumb" alt="image" /></a>
-                                                <div class="cart-list-txt">
-                                                    <h6><a href="#">wooden arn <br/> chair</a></h6>
-                                                    <p>1 x - <span class="price">$180.00</span></p>
-                                                </div><!--/.cart-list-txt-->
-                                                <div class="cart-close">
-                                                    <span class="lnr lnr-cross"></span>
-                                                </div><!--/.cart-close-->
-                                            </li><!--/.single-cart-list -->
-                                            <li class="total">
-                                                <span>Total: $0.00</span>
-                                                <button class="btn-cart pull-right" onclick="window.location.href = '#'">view cart</button>
-                                            </li>
-                                        </ul>
                                     </li><!--/.dropdown-->
                                 </ul>
                             </div><!--/.attr-nav-->
@@ -129,7 +80,7 @@
                                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
                                     <i class="fa fa-bars"></i>
                                 </button>
-                                <a class="navbar-brand" href="index.html">furn.</a>
+                                <a class="navbar-brand" href="http://localhost:8080/Ventas/">furn.</a>
 
                             </div><!--/.navbar-header-->
                             <!-- End Header Navigation -->
@@ -209,203 +160,63 @@
 
         <!--Custom JS-->
         <script src="assets/js/custom.js"></script>
-        
+
         <script>
             $(document).ready(function () {
+                calcularCarrito();
                 let locationActual = window.location.toString();
 
-                //Clientes
-                if (locationActual.indexOf("Clientes.xhtml") > -1) {
-
-                }
-                //Empleados
-                if (locationActual.indexOf("Empleados.xhtml") > -1) {
-                    cargarEmpleados();
-                }
-                if (locationActual.indexOf("EmpleadosEditar.xhtml") > -1) {
-                    let parametros = locationActual.split("?");
-                    let param = parametros[1].split("=");
-                    let id = null;
-                    if (param[0] == "id") {
-                        id = param[1];
-                    }
-                    console.log(id);
-
-                    cargarEmpleado(id);
-                }
-                if (locationActual.indexOf("EmpleadosAgregar.xhtml") > -1) {
-
-                }
-                //Artículos
-                if (locationActual.indexOf("Articulos.xhtml") > -1) {
-
-                }
-                //Sucursales
-                if (locationActual.indexOf("Sucursales.xhtml") > -1) {
+                //Carrito
+                if (locationActual.indexOf("carrito.xhtml") > -1) {
+                    obtenerCarrito();
 
                 }
             });
 
-            function cargarZapatos() {
-                //Creo la tabla
-                let tbl_empleados = $(document).find("#tbl_empleados").DataTable({
+            function obtenerCarrito() {
+                let carrito = JSON.parse(Cookies.get('carrito'));
+                $(document).find("#list-group-carrito .list-item-carrito").remove();
+                carrito.forEach(function (c) {
+                    $(document).find("#list-group-carrito").append('<li class="list-group-item row list-item-carrito">' +
+                            '<div class="col-lg-9 col-md-9">#' + c.producto_id + '-' + c.variante_producto_id + '# ' + c.nombre + ' ' + c.descripcion + ' $' + c.precio + ' ' + '</div>' +
+                            '<div class="col-lg-3 col-md-3"><button class="btn btn-block btn-danger btn-eliminar-carrito" variante_producto_id = "'+c.variante_producto_id+'" producto_id = "'+c.producto_id+'">Eliminar</button></div></li>')
                 });
-
-                //Consulto los empleados
-                /*$.ajax({
-                 url: "http://localhost:8080/VentasOnlinev2/webresources/entities.personal",
-                 beforeSend: function (xhr) {
-                 
-                 }
-                 }).done(function (xml) {
-                 let personal = new Array();
-                 $(xml).find("personal").each(function (idx, v) {
-                 let personal_id = $(v).find("personal_id").eq(0).text();
-                 let nombre = $(v).find("nombre").eq(0).text();
-                 let apellido = $(v).find("apellido").eq(0).text();
-                 let fecha_nacimiento_date = $(v).find("fecha_nacimiento_date").eq(0).text();
-                 let fecha_ingreso_date = $(v).find("fecha_ingreso_date").eq(0).text();
-                 let acceso_sistema = $(v).find("acceso_sistema").eq(0).text();
-                 let usuario = $(v).find("usuario").eq(0).text();
-                 let password = $(v).find("password").eq(0).text();
-                 let activo = $(v).find("activo").eq(0).text();
-                 let fecha_registro = $(v).find("fecha_registro").eq(0).text();
-                 
-                 personal.push({
-                 personal_id : personal_id,
-                 nombre : nombre,
-                 apellido : apellido,
-                 fecha_nacimiento_date : fecha_nacimiento_date,
-                 fecha_ingreso_date : fecha_ingreso_date,
-                 acceso_sistema : acceso_sistema,    
-                 usuario : usuario,
-                 password : password,
-                 activo : activo,
-                 fecha_registro : fecha_registro
-                 });
-                 });
-                 tbl_empleados.rows.add(personal).draw();
-                 });
-                 */
-                let personal = new Array();
-                personal.push({
-                    personal_id: "personal_id",
-                    nombre: "nombre",
-                    apellido: "apellido",
-                    fecha_nacimiento_date: "fecha_nacimiento_date",
-                    fecha_ingreso_date: "fecha_ingreso_date",
-                    acceso_sistema: "acceso_sistema",
-                    usuario: "usuario",
-                    password: "password",
-                    activo: "activo",
-                    url: "http://",
-                    fecha_registro: "fecha_registro"
-                });
-
-                let rows = new Array();
-                personal.forEach(function (p) {
-                    let row = new Array();
-                    row.push(p.personal_id);
-                    row.push(p.nombre);
-                    row.push(p.apellido);
-                    row.push(p.fecha_nacimiento_date);
-                    row.push(p.fecha_ingreso_date);
-                    row.push(p.acceso_sistema);
-                    row.push(p.activo);
-                    row.push("<button>Eliminar</button><button >Editar</button>");
-                    rows.push(row);
-                });
-                tbl_empleados.rows.add(rows).draw();
             }
 
-            function cargarEmpleado(id) {
-                //Consulto los empleados
-                let personal = new Array();
-                personal.push({
-                    personal_id: "personal_id",
-                    nombre: "nombre",
-                    apellido: "apellido",
-                    fecha_nacimiento_date: "fecha_nacimiento_date",
-                    fecha_ingreso_date: "fecha_ingreso_date",
-                    acceso_sistema: "acceso_sistema",
-                    usuario: "usuario",
-                    password: "password",
-                    activo: "activo",
-                    fecha_registro: "fecha_registro"
+            function calcularCarrito() {
+                if (Cookies.get('carrito') == undefined) {
+                    Cookies.set('carrito', JSON.stringify([]));
+                }
+                let carrito = JSON.parse(Cookies.get('carrito'));
+                $(document).find("#count-car").text(carrito.length);
+                
+                if(carrito != 0){
+                    $(document).find("#row-pagar").attr("hidden", false);
+                }else{
+                    $(document).find("#row-pagar").attr("hidden", true);
+                }
+                
+            }
+            
+            $(document).on("click", ".btn-eliminar-carrito", function(){
+                let list_group_item = $(this).closest("li");
+                let producto_id = $(this).attr("producto_id");
+                let variante_producto_id = $(this).attr("variante_producto_id");
+                let carrito = JSON.parse(Cookies.get('carrito'));
+                let nuevo_carrito = new Array();
+                carrito.forEach(function(c){
+                    if(c.producto_id != producto_id){
+                        if(c.variante_producto_id != variante_producto_id){
+                            nuevo_carrito.push(c);
+                        }
+                    }
                 });
                 
-                if(personal.length){
-                    //Editar campos
-                    
-                }else{
-                    window.location.href = 'http://localhost:8080/Ventas/faces/Empleados.xhtml?';
-                }
-
-                /*$.ajax({
-                    url: "http://localhost:8080/VentasOnlinev2/webresources/entities.personal/"+id,
-                    beforeSend: function (xhr) {
-
-                    }
-                }).done(function (xml) {
-                    let personal = new Array();
-                    $(xml).find("personal").each(function (idx, v) {
-                        let personal_id = $(v).find("personal_id").eq(0).text();
-                        let nombre = $(v).find("nombre").eq(0).text();
-                        let apellido = $(v).find("apellido").eq(0).text();
-                        let fecha_nacimiento_date = $(v).find("fecha_nacimiento_date").eq(0).text();
-                        let fecha_ingreso_date = $(v).find("fecha_ingreso_date").eq(0).text();
-                        let acceso_sistema = $(v).find("acceso_sistema").eq(0).text();
-                        let usuario = $(v).find("usuario").eq(0).text();
-                        let password = $(v).find("password").eq(0).text();
-                        let activo = $(v).find("activo").eq(0).text();
-                        let fecha_registro = $(v).find("fecha_registro").eq(0).text();
-
-                        personal.push({
-                            personal_id: personal_id,
-                            nombre: nombre,
-                            apellido: apellido,
-                            fecha_nacimiento_date: fecha_nacimiento_date,
-                            fecha_ingreso_date: fecha_ingreso_date,
-                            acceso_sistema: acceso_sistema,
-                            usuario: usuario,
-                            password: password,
-                            activo: activo,
-                            fecha_registro: fecha_registro
-                        });
-                    });
-                });*/
-            }
-            $(document).on("click", "button", function () {
-                let tbl_empleados = $(document).find("#tbl_empleados").DataTable();
-                let accion = $(this).text();
-                let tr = $(this).closest("tr");
-                let row = null;
-                let id = null;
-                switch (accion) {
-                    case "Eliminar":
-                        row = tbl_empleados.row(tr).data();
-                        id = row[0];
-                        $.ajax({
-                            url: "http://localhost:8080/VentasOnlinev2/webresources/entities.personal/" + id,
-                            type: "DELETE",
-                            beforeSend: function (xhr) {
-
-                            }
-                        }).done(function (xml) {
-                            tbl_empleados.row(row).remove().data();
-                            alert("Se ha eliminado con éxito");
-                        });
-
-                        break;
-                    case "Editar":
-                        row = tbl_empleados.row(tr).data();
-                        id = row[0];
-
-                        window.location.href = 'http://localhost:8080/Ventas/faces/EmpleadosEditar.xhtml?id=' + id;
-                        break;
-
-                }
-                alert(accion);
+                Cookies.set('carrito', JSON.stringify(nuevo_carrito));
+                
+                calcularCarrito();
+                obtenerCarrito();
+                
             });
         </script>
 

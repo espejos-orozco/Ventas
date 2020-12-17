@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <body>
+        
+        <ui:composition template="./plantillas/templateFull.xhtml">
+
+            <ui:define name="content">
+                <section id="populer-products" class="populer-products">
+                    <div class="container">
+                        <div class="populer-products-content">
+                            <ul class="list-group" id="list-group-carrito">
+                                <li class="list-group-item active">Articulos Solicitados</li>
+                            </ul>
+                        </div>
+                        <div class="row" id ="row-pagar" hidden="true">
+                            <div class="col-lg-9 col-md-9"></div>
+                            <div class="col-lg-3 col-md-3"><button id="btn-pagar" class="btn btn-block btn-success">Pagar</button></div>
+                        </div>
+                    </div>
+                </section>
+            </ui:define>
+
+        </ui:composition>
+    </body>
+    
+</html>
