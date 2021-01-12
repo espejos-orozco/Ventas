@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <body>
+
+        <ui:composition template="./plantillas/wp-admin-template.xhtml">
+
+            <ui:define name="content">
+                <h2>Crear Cliente</h2>
+                <div class="col-xs-3">
+                    <form  action="Clientes.xhtml" method="POST">
+                        <div class="form-group w-50 p-3">
+                            <label>Nombre:</label>
+                            <input type="text" name="nombre" class="form-control"></input><br></br>
+                        </div>
+                        <div class="form-group w-50 p-3">
+                            <label>Apellido:</label>
+                            <input type="text" name="apellidos" class="form-control"></input><br></br>
+                        </div>
+                        <div class="form-group w-50 p-3">
+                            <label>Correo Electronico:</label>
+                            <input type="text" name="correo_electronico" class="form-control"></input><br></br>
+                        </div>
+                        <div class="form-group w-50 p-3">
+                            <label>Contraseña:</label>
+                            <input type="password" name="password" class="form-control"></input><br></br>
+                        </div>
+                        <div class="form-group w-50 p-3">
+                            <label>Telefono:</label>
+                            <input type="text" name="telefono" class="form-control"></input><br></br>
+                        </div>
+                        <button type="submit" class="btn btn-primary" value="Crear">Crear</button> 
+                    </form>
+                </div>
+            </ui:define>
+            <br></br>
+
+            <ui:define name="bottom">
+                
+            </ui:define>
+        </ui:composition>
+
+    </body>
+</html>

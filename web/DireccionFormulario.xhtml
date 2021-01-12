@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <body>
+
+        <ui:composition template="./plantillas/wp-admin-template.xhtml">
+
+            <ui:define name="content">
+                <h2>Crear Direccion</h2>
+                <div class="col-xs-3">
+                    <form  action="Direccion.xhtml" method="POST">
+                        <div class="form-group w-50 p-3">
+                            <label>Calle:</label>
+                            <input type="text" name="calle" class="form-control"></input><br></br>
+                        </div>
+                        <div class="form-group w-50 p-3">
+                            <label>Colonia:</label>
+                            <input type="text" name="colonia" class="form-control"></input><br></br>
+                        </div>
+                        <div class="form-group w-50 p-3">
+                            <label>Localidad:</label>
+                            <input type="text" name="localidad" class="form-control"></input><br></br>
+                        </div>
+                        <div class="form-group w-50 p-3">
+                            <label>Region:</label>
+                            <input type="text" name="region" class="form-control"></input><br></br>
+                        </div>
+                        <div class="form-group w-50 p-3">
+                            <label>Codigo Postal:</label>
+                            <input type="number" name="codigo_postal" class="form-control"></input><br></br>
+                        </div>
+                        <button type="submit" class="btn btn-primary" value="Crear">Crear</button> 
+                    </form>
+                </div>
+            </ui:define>
+            <br></br>
+
+            <ui:define name="bottom">
+                
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
