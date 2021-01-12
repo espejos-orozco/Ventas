@@ -122,7 +122,7 @@
                 }
                 //Sucursales
                 if (locationActual.indexOf("Sucursales.xhtml") > -1) {
-
+                    cargarSucursales();
                 }
             });
 
@@ -230,6 +230,46 @@
                     tbl_clientes.rows.add(rows).draw();
                 });
             }
+            
+            function cargarSucursales(){
+                //Creo la tabla
+                let tbl_sucursales = $(document).find("#tbl_Sucursales").DataTable({
+                });
+
+                let sucursales = new Array();
+                $.ajax({
+                    url: "http://localhost:8080/VentasOnlinev2/webresources/entities.sucursales",
+                    beforeSend: function (xhr) {
+                        
+                    }
+                }).done(function (xml) {
+                    $(xml).find("sucursaless").each(function (idx, v) {
+                        let sucursal_id = $(v).find("sucursalId").eq(0).text();
+                        let alias = $(v).find("alias").eq(0).text();
+                        let fecha_inauguracion = $(v).find("fechaInauguracion").eq(0).text();
+                        let activo = $(v).find("activo").eq(0).text();
+                        
+                        sucursales.push({
+                            sucursal_id : sucursal_id,
+                            alias : alias,
+                            fecha_inauguracion : fecha_inauguracion,
+                            activo : activo,
+                        });
+                    });
+                    
+                    let rows = new Array();
+                    sucursales.forEach(function (p) {
+                        let row = new Array();
+                        row.push(p.sucursal_id);
+                        row.push(p.alias);
+                        row.push(p.fecha_inauguracion);
+                        row.push("<button>Eliminar</button><button >Editar</button>");
+                        rows.push(row);
+                    });
+                    tbl_sucursales.rows.add(rows).draw();
+                });
+            }
+            
             function cargarEmpleado(id) {
                 //Consulto los empleados
                 let personal = new Array();

@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <body>
+        
+        <ui:composition template="./plantillas/templateFull.xhtml">
+
+            <ui:define name="content">
+                <section id="populer-products" class="populer-products text-right" style="padding-right: 100px;">
+                    <p>Ingresa tu(s) nombre(s): <input type="text" name="nombrecompleto" placeholder="Juan José"/></p>
+                    <p>Ingresa tus apellidos: <input type="text" name="apellidos" placeholder="Herrera Guzman"/></p>
+                    <p>Correo elect&oacute;nico: <input type="email" name="correoelectronico" placeholder="ejemplo@email.com"/></p>
+                    <p>Contrasena <input type="password" name="contrasena" placeholder=""/></p>
+                    <p>Tel&eacute;fono: <input type="tel" name="telefono" placeholder="1234567890"/></p>
+                    <button id="btn-guardar" class="btn btn-lg btn-primary">Registrarme</button>
+                </section>
+            </ui:define>
+
+        </ui:composition>
+    </body>
+    
+</html>

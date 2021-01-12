@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <body>
+        
+        <ui:composition template="./plantillas/templateFull.xhtml">
+            <ui:define name="content">
+                <section id="populer-products" class="populer-products text-right" style="padding-right: 100px;">
+                    <p>N&uacute;mero de Tarjeta:  <input type="text" name="numero_tarjeta" placeholder="1322-0161-3464-7342"/></p><br/>
+                    <p>Nombre:  <input type="text" name="nombre" placeholder="Joan"/></p><br/>
+                    <p>Fecha Expiraci&oacute;n: <input type="text" name="fecha_expiracion" placeholder="12/22"/></p><br/>
+                    <p>C&oacute;digo de Seguridad: <input type="text" name="codigo_seguridad" placeholder="123"/></p><br/>
+                    <button id="btn-guardar" class="btn btn-lg btn-primary">Registrarme</button>
+                </section>
+            </ui:define>
+        </ui:composition>
+    </body>
+    
+</html>
