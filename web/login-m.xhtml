@@ -332,7 +332,7 @@
 
         function iniciarSesion(usuario, password) {
             $.ajax({
-                url: "http://localhost:8080/VentasOnlinev2/webresources/personal/findsession/" + password + "/" + usuario,
+                url: "http://localhost:8080/VentasOnlinev2/webresources/entities.personal/findsession/" + password + "/" + usuario,
                 type: "POST",
                 beforeSend: function () {
                     cargando();
@@ -395,6 +395,7 @@
             } else {
                 //Se oculta el dialogo
                 $("#div-loading").dialog("close");
+                $("#div-loading").prop("hidden", false);
         }
         }
     </script>

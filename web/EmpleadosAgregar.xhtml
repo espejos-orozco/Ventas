@@ -13,34 +13,34 @@
                     <div class="col-lg-6 col-md-6">
                         <div class="form-group w-50 p-3">
                             <label>Nombre:</label>
-                            <input type="text" name="nombre" class="form-control"></input><br></br>
+                            <input type="text" name="nombre" id="txt-nombre" class="form-control"></input><br></br>
                         </div>
                         <div class="form-group w-50 p-3">
                             <label>Apellido:</label>
-                            <input type="text" name="apellido" class="form-control"></input><br></br>
+                            <input type="text" name="apellido" id="txt-apellido" class="form-control"></input><br></br>
                         </div>
                         <div class="form-group w-50 p-3">
                             <label>Nombre de Usuario:</label>
-                            <input type="text" name="usuario" class="form-control"></input><br></br>
+                            <input type="text" name="usuario" id="txt-usuario" class="form-control"></input><br></br>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6">
                         <div class="form-group w-50 p-3">
                             <label>Contraseña:</label>
-                            <input type="text" name="password" class="form-control"></input><br></br>
+                            <input type="text" name="password" id="txt-password" class="form-control"></input><br></br>
                         </div>
                         <div class="form-group w-50 p-3">
                             <label>Fecha de Nacimiento:</label>
-                            <input type="date" name="fecha_nacimiento_date" class="form-control"></input><br></br>
+                            <input type="date" name="fecha_nacimiento_date" id="txt-fecha_nacimiento" class="form-control"></input><br></br>
                         </div>
                         <div class="form-group w-50 p-3">
                             <label>Acceso:</label><br></br>
-                            <input type="radio" name="acceso_sistema" value="1"></input>
+                            <input type="radio" name="acceso_sistema" value="1" checked="true"></input>
                             <label>Si</label><br></br>
                             <input type="radio" name="acceso_sistema" value="0"></input>
                             <label>No</label><br></br>
                         </div>
-                        <button type="submit" class="btn btn-primary" value="Editar">Editar</button> 
+                        <button type="submit" class="btn btn-primary" id="btn-agregar-empleado">Agregar</button> 
                     </div>
                 </div>
             </ui:define>

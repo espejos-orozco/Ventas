@@ -31,6 +31,9 @@
                         <a class="nav-link" href="http://localhost:8080/Ventas/faces/Clientes.xhtml">Clientes</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="http://localhost:8080/Ventas/faces/Articulos.xhtml">Articulos</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="http://localhost:8080/Ventas/faces/Sucursales.xhtml">Sucursales</a>
                     </li>
                     <li class="nav-item">
@@ -52,6 +55,9 @@
 
         <div id="bottom">
             <ui:insert name="bottom">Bottom</ui:insert>
+            <div id="div-loading" hidden="true">
+                <img width="300px" height="300px" src="https://i1.wp.com/sportsmonks.com/wp-content/uploads/2018/loading.gif"/>
+            </div>
         </div>
 
         <!-- Include all js compiled plugins (below), or include individual files as needed -->
@@ -81,7 +87,7 @@
 
         <!-- Cookies -->
         <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
-        
+
         <script>
             $(document).ready(function () {
                 checkSession();
@@ -89,7 +95,8 @@
 
                 //Clientes
                 if (locationActual.indexOf("Clientes.xhtml") > -1) {
-
+                    $(document).find("#title").text("Clientes");
+                    cargarClientes();
                 }
                 //Empleados
                 if (locationActual.indexOf("Empleados.xhtml") > -1) {
@@ -103,7 +110,7 @@
                     if (param[0] == "id") {
                         id = param[1];
                     }
-                    
+
                     cargarEmpleado(id);
                 }
                 if (locationActual.indexOf("EmpleadosAgregar.xhtml") > -1) {
@@ -124,72 +131,105 @@
                 let tbl_empleados = $(document).find("#tbl_empleados").DataTable({
                 });
 
-                //Consulto los empleados
-                /*$.ajax({
-                 url: "http://localhost:8080/VentasOnlinev2/webresources/entities.personal",
-                 beforeSend: function (xhr) {
-                 
-                 }
-                 }).done(function (xml) {
-                 let personal = new Array();
-                 $(xml).find("personal").each(function (idx, v) {
-                 let personal_id = $(v).find("personal_id").eq(0).text();
-                 let nombre = $(v).find("nombre").eq(0).text();
-                 let apellido = $(v).find("apellido").eq(0).text();
-                 let fecha_nacimiento_date = $(v).find("fecha_nacimiento_date").eq(0).text();
-                 let fecha_ingreso_date = $(v).find("fecha_ingreso_date").eq(0).text();
-                 let acceso_sistema = $(v).find("acceso_sistema").eq(0).text();
-                 let usuario = $(v).find("usuario").eq(0).text();
-                 let password = $(v).find("password").eq(0).text();
-                 let activo = $(v).find("activo").eq(0).text();
-                 let fecha_registro = $(v).find("fecha_registro").eq(0).text();
-                 
-                 personal.push({
-                 personal_id : personal_id,
-                 nombre : nombre,
-                 apellido : apellido,
-                 fecha_nacimiento_date : fecha_nacimiento_date,
-                 fecha_ingreso_date : fecha_ingreso_date,
-                 acceso_sistema : acceso_sistema,    
-                 usuario : usuario,
-                 password : password,
-                 activo : activo,
-                 fecha_registro : fecha_registro
-                 });
-                 });
-                 tbl_empleados.rows.add(personal).draw();
-                 });
-                 */
                 let personal = new Array();
-                personal.push({
-                    personal_id: "personal_id",
-                    nombre: "nombre",
-                    apellido: "apellido",
-                    fecha_nacimiento_date: "fecha_nacimiento_date",
-                    fecha_ingreso_date: "fecha_ingreso_date",
-                    acceso_sistema: "acceso_sistema",
-                    usuario: "usuario",
-                    password: "password",
-                    activo: "activo",
-                    fecha_registro: "fecha_registro"
-                });
+                $.ajax({
+                    url: "http://localhost:8080/VentasOnlinev2/webresources/entities.personal",
+                    beforeSend: function (xhr) {
 
-                let rows = new Array();
-                personal.forEach(function (p) {
-                    let row = new Array();
-                    row.push(p.personal_id);
-                    row.push(p.nombre);
-                    row.push(p.apellido);
-                    row.push(p.fecha_nacimiento_date);
-                    row.push(p.fecha_ingreso_date);
-                    row.push(p.acceso_sistema);
-                    row.push(p.activo);
-                    row.push("<button>Eliminar</button><button >Editar</button>");
-                    rows.push(row);
+                    }
+                }).done(function (xml) {
+                    $(xml).find("personal").each(function (idx, v) {
+                        console.log(v);
+                        let personal_id = $(v).find("personalId").eq(0).text();
+                        let nombre = $(v).find("nombre").eq(0).text();
+                        let apellido = $(v).find("apellido").eq(0).text();
+                        let fecha_nacimiento_date = $(v).find("fechaNacimientoDate").eq(0).text();
+                        let fecha_ingreso_date = $(v).find("fechaIngresoDate").eq(0).text();
+                        let acceso_sistema = $(v).find("accesoSistema").eq(0).text();
+                        let usuario = $(v).find("usuario").eq(0).text();
+                        let password = $(v).find("password").eq(0).text();
+                        let activo = $(v).find("activo").eq(0).text();
+                        let fecha_registro = $(v).find("fechaRegistro").eq(0).text();
+
+                        personal.push({
+                            personal_id: personal_id,
+                            nombre: nombre,
+                            apellido: apellido,
+                            fecha_nacimiento_date: fecha_nacimiento_date,
+                            fecha_ingreso_date: fecha_ingreso_date,
+                            acceso_sistema: acceso_sistema,
+                            usuario: usuario,
+                            password: password,
+                            activo: activo,
+                            fecha_registro: fecha_registro
+                        });
+                    });
+                    console.log(personal);
+                    let rows = new Array();
+                    personal.forEach(function (p) {
+                        let row = new Array();
+                        row.push(p.personal_id);
+                        row.push(p.nombre);
+                        row.push(p.apellido);
+                        row.push(p.fecha_nacimiento_date);
+                        row.push(p.fecha_ingreso_date);
+                        row.push(p.acceso_sistema);
+                        row.push(p.activo);
+                        row.push("<button>Eliminar</button><button >Editar</button>");
+                        rows.push(row);
+                    });
+                    tbl_empleados.rows.add(rows).draw();
                 });
-                tbl_empleados.rows.add(rows).draw();
             }
+            
+            function cargarClientes(){
+                //Creo la tabla
+                let tbl_clientes = $(document).find("#tbl_clientes").DataTable({
+                });
 
+                let clientes = new Array();
+                $.ajax({
+                    url: "http://localhost:8080/VentasOnlinev2/webresources/entities.clientes",
+                    beforeSend: function (xhr) {
+                        
+                    }
+                }).done(function (xml) {
+                    $(xml).find("clientes").each(function (idx, v) {                        
+                        let activo = $(v).find("activo").eq(0).text();
+                        let apellidos = $(v).find("apellidos").eq(0).text();
+                        let clienteId = $(v).find("clienteId").eq(0).text();
+                        let correoElectronico = $(v).find("correoElectronico").eq(0).text();
+                        let fechaRegistro = $(v).find("fechaRegistro").eq(0).text();
+                        let nombre = $(v).find("nombre").eq(0).text();
+                        let password = $(v).find("password").eq(0).text();
+                        let telefono = $(v).find("telefono").eq(0).text();
+
+                        clientes.push({
+                            activo : activo,
+                            apellidos : apellidos,
+                            clienteId : clienteId,
+                            correoElectronico : correoElectronico,
+                            fechaRegistro : fechaRegistro,
+                            nombre : nombre,
+                            password : password,
+                            telefono : telefono,
+                        });
+                    });
+                    
+                    let rows = new Array();
+                    clientes.forEach(function (p) {
+                        let row = new Array();
+                        row.push(p.clienteId);
+                        row.push(p.nombre);
+                        row.push(p.apellidos);
+                        row.push(p.correoElectronico);
+                        row.push(p.telefono);
+                        row.push("<button>Eliminar</button><button >Editar</button>");
+                        rows.push(row);
+                    });
+                    tbl_clientes.rows.add(rows).draw();
+                });
+            }
             function cargarEmpleado(id) {
                 //Consulto los empleados
                 let personal = new Array();
@@ -247,42 +287,9 @@
                  });
                  });*/
             }
-            
-            $(document).on("click", "button", function () {
-                let tbl_empleados = $(document).find("#tbl_empleados").DataTable();
-                let accion = $(this).text();
-                let tr = $(this).closest("tr");
-                let row = null;
-                let id = null;
-                switch (accion) {
-                    case "Eliminar":
-                        row = tbl_empleados.row(tr).data();
-                        id = row[0];
-                        $.ajax({
-                            url: "http://localhost:8080/VentasOnlinev2/webresources/entities.personal/" + id,
-                            type: "DELETE",
-                            beforeSend: function (xhr) {
-
-                            }
-                        }).done(function (xml) {
-                            tbl_empleados.row(row).remove().data();
-                            alert("Se ha eliminado con éxito");
-                        });
-
-                        break;
-                    case "Editar":
-                        row = tbl_empleados.row(tr).data();
-                        id = row[0];
-
-                        window.location.href = 'http://localhost:8080/Ventas/faces/EmpleadosEditar.xhtml?id=' + id;
-                        break;
-
-                }
-                alert(accion);
-            });
 
 
-            function checkSession(){
+            function checkSession() {
                 let session = Cookies.get('session_root');
 
                 if (session == undefined) {
@@ -296,21 +303,22 @@
             $(document).on("click", "#btn-cerrar-sesion", function () {
                 Cookies.remove('session_root');
                 checkSession();
-                
+
             });
 
             function cargando(cargar = true) {
+                alert(cargar);  
                 if (cargar) {
                     if ($(document).find("#div-loading").prop("hidden")) {
-                        $("#div-loading").prop("hidden", false);
+                        $(document).find("#div-loading").prop("hidden", false);
                         //Se muestra dialogo
-                        $("#div-loading").dialog({
+                        $(document).find("#div-loading").dialog({
                             resizable: false,
                             height: 400,
                             with : 400,
                             modal: true,
                             close: function () {
-                                $("#div-loading").prop("hidden", true);
+                                $(document).find("#div-loading").prop("hidden", true);
                             },
                             open: function () {
                                 $(".ui-button").prop("hidden", true);
@@ -319,9 +327,44 @@
                     }
                 } else {
                     //Se oculta el dialogo
-                    $("#div-loading").dialog("close");
+                    $(document).find("#div-loading").dialog("close");
+                }
             }
-            }
+            
+            $(document).on("click", "#btn-agregar-empleado", function(){
+                let nombre = $(document).find("#txt-nombre").val();
+                if(nombre == ""){
+                    alert("Debes de llenar tu usuario");
+                    return;
+                }
+                let apellido = $(document).find("#txt-apellido").val();
+                if(apellido == ""){
+                    alert("Debes de agregar un apellido");
+                    return;
+                }
+                
+                let usuario = $(document).find("#txt-usuario").val();
+                if(usuario == ""){
+                    alert("Debes de llenar el nombre de usuario");
+                    return;
+                }
+                
+                let password = $(document).find("#txt-password").val();
+                if(password == ""){
+                    alert("Debes de llenar la contraseña");
+                    return;
+                }
+                let fecha_nacimiento = $(document).find("#txt-fecha_nacimiento").val(); 
+                if(password == ""){
+                    alert("Debes de llenar la fecha de nacimiento");
+                    return;
+                }
+                
+                let acceso_sistema = $("input:radio[name=acceso_sistema]:checked").val();
+                
+                
+            });
+        
         </script>
 
     </h:body>
