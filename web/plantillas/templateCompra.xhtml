@@ -160,61 +160,20 @@
 
         <script>
             $(document).ready(function () {
-                calcularCarrito();
                 let locationActual = window.location.toString();
-
-                //Carrito
-                if (locationActual.indexOf("carrito.xhtml") > -1) {
-                    obtenerCarrito();
-
-                }
+                
+                checkSession();
             });
-
-            function obtenerCarrito() {
-                let carrito = JSON.parse(Cookies.get('carrito'));
-                $(document).find("#list-group-carrito .list-item-carrito").remove();
-                carrito.forEach(function (c) {
-                    $(document).find("#list-group-carrito").append('<li class="list-group-item row list-item-carrito">' +
-                            '<div class="col-lg-9 col-md-9">#' + c.producto_id + '-' + c.variante_producto_id + '# ' + c.nombre + ' ' + c.descripcion + ' $' + c.precio + ' ' + '</div>' +
-                            '<div class="col-lg-3 col-md-3"><button class="btn btn-block btn-danger btn-eliminar-carrito" variante_producto_id = "'+c.variante_producto_id+'" producto_id = "'+c.producto_id+'">Eliminar</button></div></li>')
-                });
-            }
-
-            function calcularCarrito() {
-                if (Cookies.get('carrito') == undefined) {
-                    Cookies.set('carrito', JSON.stringify([]));
-                }
-                let carrito = JSON.parse(Cookies.get('carrito'));
-                $(document).find("#count-car").text(carrito.length);
-                
-                if(carrito != 0){
-                    $(document).find("#row-pagar").attr("hidden", false);
+            function checkSession() {
+                let session = Cookies.get('session_cliente');
+                if (session != undefined) {
+                    console.log("Sesión completa");
                 }else{
-                    $(document).find("#row-pagar").attr("hidden", true);
+                    window.location.href = 'http://localhost:8080/Ventas/faces/login.xhtml';
                 }
-                
             }
             
-            $(document).on("click", ".btn-eliminar-carrito", function(){
-                let list_group_item = $(this).closest("li");
-                let producto_id = $(this).attr("producto_id");
-                let variante_producto_id = $(this).attr("variante_producto_id");
-                let carrito = JSON.parse(Cookies.get('carrito'));
-                let nuevo_carrito = new Array();
-                carrito.forEach(function(c){
-                    if(c.producto_id != producto_id){
-                        if(c.variante_producto_id != variante_producto_id){
-                            nuevo_carrito.push(c);
-                        }
-                    }
-                });
-                
-                Cookies.set('carrito', JSON.stringify(nuevo_carrito));
-                
-                calcularCarrito();
-                obtenerCarrito();
-                
-            });
+            
         </script>
 
     </h:body>
